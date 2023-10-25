@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+</head>
+<style>
+    *{
+       background-color: black; 
+       color: white;
+    }
+    h1{
+        color: white;
+    }
+    table{
+        color: white;
+        margin-top: 10rem;
+        background-color: red;
+    }
+    td{
+        padding: 10px;
+    }
+    input{
+        padding: 10px;
+        height: 30px;
+        width: 30px;;
+        color: white;
+        border: none;
+    }
+</style>
+<body><center>
+    <h1>Tic Tac Toe</h1>
+    <div>
+    <table margin="1">
+       <tr>
+        <td><input type="button" class="box" readonly onclick="run(this)"></td>
+        <td><input type="button" class="box" readonly onclick="run(this)"></td>
+        <td><input type="button" class="box" readonly onclick="run(this)"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+            <td><input type="button" class="box" readonly onclick="run(this)"></td>
+        </tr>
+    </table>
+    </div>
+    <br>
+    <button onclick="reset()">Reset</button>
+</center>
+</body>
+<script>
+    var currentPlayer = 'X';
+    var moves = 0;
+    var gameOver = false;
+
+    function run(box){ 
+        if (!gameOver && box.value === '') {
+            box.value = currentPlayer;
+            moves++;
+
+            if (checkWin(currentPlayer)) {
+                alert(currentPlayer + ' wins!');
+                gameOver = true;
+            } else if (moves === 9) {
+                alert('It\'s a tie!');
+                gameOver = true;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+    }
+
+    function checkWin(player) {
+        var boxes = document.getElementsByClassName('box');
+        var winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+            [0, 4, 8], [2, 4, 6] // diagonals
+        ];
+
+        for (var i = 0; i < winningCombinations.length; i++) {
+            var [a, b, c] = winningCombinations[i];
+            if (boxes[a].value === player && boxes[b].value === player && boxes[c].value === player) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function reset() {
+        var boxes = document.getElementsByClassName('box');
+        for (var i = 0; i < boxes.length; i++) {
+            boxes[i].value = '';
+        }
+        currentPlayer = 'X';
+        moves = 0;
+        gameOver = false;
+    }
+</script>
+</html>
