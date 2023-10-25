@@ -18,6 +18,7 @@
         color: white;
         margin-top: 10rem;
         background-color: red;
+        
     }
     td{
         padding: 10px;
@@ -29,11 +30,16 @@
         color: white;
         border: none;
     }
+    .box{
+        font-size: large;
+        height: 30px;
+        width: 30px;
+    }
 </style>
 <body><center>
     <h1>Tic Tac Toe</h1>
     <div>
-    <table margin="1">
+    <table margin="1" id="table">
        <tr>
         <td><input type="button" class="box" readonly onclick="run(this)"></td>
         <td><input type="button" class="box" readonly onclick="run(this)"></td>
@@ -60,18 +66,26 @@
     var moves = 0;
     var gameOver = false;
 
-    function run(box){ 
+    function run(box){ debugger;
         if (!gameOver && box.value === '') {
             box.value = currentPlayer;
             moves++;
 
             if (checkWin(currentPlayer)) {
+                gameOver = true;
                 alert(currentPlayer + ' wins!');
-                gameOver = true;
+                
             } else if (moves === 9) {
-                alert('It\'s a tie!');
                 gameOver = true;
+                alert('It\'s a tie!');
+                
             } else {
+                if(currentPlayer=='X'){
+                    document.getElementById("table").style.backgroundColor="green";
+                }
+                else{
+                    document.getElementById("table").style.backgroundColor="red";
+                }
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
         }
@@ -103,6 +117,7 @@
         currentPlayer = 'X';
         moves = 0;
         gameOver = false;
+        document.getElementById("table").style.backgroundColor="red"
     }
 </script>
 </html>
